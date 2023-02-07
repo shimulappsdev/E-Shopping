@@ -15,7 +15,7 @@
         app:mt_hint="Search"
         app:mt_maxSuggestionsCount="05"
         app:mt_navIconEnabled="true"
-        app:mt_placeholder="Kenakata"
+        app:mt_placeholder="search here"
         app:mt_speechMode="true"
         tools:ignore="TouchTargetSizeCheck"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +50,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
+                tools:listitem="@layout/item_categoris"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
