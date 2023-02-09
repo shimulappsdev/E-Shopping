@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_80sdp"
+    android:layout_width="@dimen/_90sdp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_5sdp"
-    android:background="@drawable/cate_item_back"
+    android:background="@drawable/product_item_back"
     android:padding="@dimen/_5sdp">
 
     <de.hdodenhof.circleimageview.CircleImageView

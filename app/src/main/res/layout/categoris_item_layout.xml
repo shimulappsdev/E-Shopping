@@ -27,6 +27,8 @@
             android:gravity="center"
             android:text="Category Name"
             android:textSize="@dimen/_8ssp"
+            android:singleLine="true"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
