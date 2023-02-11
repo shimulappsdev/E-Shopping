@@ -1,7 +1,10 @@
 package com.example.eshopping.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,8 +23,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(getLayoutInflater(), container, false);
 
-
-
         return binding.getRoot();
     }
+
+
 }
