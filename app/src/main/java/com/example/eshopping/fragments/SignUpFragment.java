@@ -85,7 +85,6 @@ public class SignUpFragment extends Fragment {
     }
 
     private void registerUser(String name, String phone, String email, String password) {
-        Log.i("TAG", "onCreateView: "+" reg");
         mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(authResult -> {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             String uid = firebaseUser.getUid();
@@ -97,7 +96,7 @@ public class SignUpFragment extends Fragment {
             userMap.put("user_email", email);
             userMap.put("user_profile", "");
             userMap.put("user_password", password);
-            Log.i("TAG", "onCreateView: "+" data add");
+            Log.i("TAG", "onCreateView: "+" data added....");
            userReference.child(uid).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                @Override
                public void onComplete(@NonNull Task<Void> task) {

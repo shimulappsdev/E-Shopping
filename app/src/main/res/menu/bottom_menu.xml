@@ -10,7 +10,7 @@
     <item
         android:id="@+id/loveMenu"
         android:title="Love"
-        android:icon="@drawable/love"
+        android:icon="@drawable/love1"
         />
 
     <item

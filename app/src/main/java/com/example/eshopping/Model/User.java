@@ -2,17 +2,17 @@ package com.example.eshopping.Model;
 
 public class User {
 
-    private String email,password,uid,name,phone,profile;
+    private String email,uid,name,password,phone,profile;
 
     public User (){
 
     }
 
-    public User(String email, String password, String uid, String name, String phone, String profile) {
+    public User(String email, String uid, String name, String password, String phone, String profile) {
         this.email = email;
-        this.password = password;
         this.uid = uid;
         this.name = name;
+        this.password = password;
         this.phone = phone;
         this.profile = profile;
     }
@@ -23,14 +23,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUid() {
@@ -49,6 +41,14 @@ public class User {
         this.name = name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -63,17 +63,5 @@ public class User {
 
     public void setProfile(String profile) {
         this.profile = profile;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", uid='" + uid + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", profile='" + profile + '\'' +
-                '}';
     }
 }

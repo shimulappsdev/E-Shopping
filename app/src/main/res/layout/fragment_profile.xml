@@ -80,10 +80,11 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_margin="@dimen/_10sdp"
-                    app:srcCompat="@drawable/cart" />
+                    app:srcCompat="@drawable/carts" />
 
                 <TextView
                     android:id="@+id/cart_tv"
@@ -108,11 +109,12 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/imageView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_margin="@dimen/_10sdp"
-                    app:srcCompat="@drawable/love" />
+                    app:srcCompat="@drawable/love1" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -128,8 +130,8 @@
 
             <LinearLayout
                 android:id="@+id/logout"
-                android:layout_width="240dp"
-                android:layout_height="153dp"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_weight="2"
                 android:background="@drawable/top_button_background"
@@ -137,11 +139,12 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/imageView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_margin="@dimen/_10sdp"
-                    app:srcCompat="@drawable/cart" />
+                    app:srcCompat="@drawable/shutdown" />
 
                 <TextView
                     android:id="@+id/logout_tv"

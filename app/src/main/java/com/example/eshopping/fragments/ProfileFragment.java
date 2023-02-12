@@ -32,7 +32,6 @@ public class ProfileFragment extends Fragment {
     FragmentProfileBinding binding;
     FirebaseDatabase databaseReference;
     FirebaseUser firebaseUser;
-    List<User> userList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class ProfileFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = firebaseUser.getUid();
-        userList=new ArrayList<>();
         //*******Logout button*************
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +50,12 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        databaseReference.getReference().child("user").addValueEventListener(new ValueEventListener() {
+        databaseReference.getReference().child("user").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot userinfo:
                         snapshot.getChildren()) {
-//                   User user =userinfo.getValue(User.class);
+        //           User user =userinfo.getValue(User.class);
 //                    Log.i("TAG", "onDataChange: "+user);
                 }
 
