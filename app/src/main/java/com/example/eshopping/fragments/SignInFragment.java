@@ -34,7 +34,6 @@ public class SignInFragment extends Fragment {
         //**********if user already sign up the active redirect to Mainactive*********
         if (currentUser!=null){
             startActivity(new Intent(getActivity(), MainActivity.class));
-
         }
 //****************This Button wrok for if user don't have any account*************************
         binding.signUpNowBtn.setOnClickListener(view -> {
