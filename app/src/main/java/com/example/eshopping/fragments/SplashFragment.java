@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 
 import com.example.eshopping.R;
 import com.example.eshopping.activities.EntryActivity;
+import com.example.eshopping.activities.MainActivity;
 import com.example.eshopping.databinding.FragmentSplashBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashFragment extends Fragment {
 
@@ -23,6 +26,7 @@ public class SplashFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSplashBinding.inflate(getLayoutInflater(), container, false);
+
 
         Thread thread = new Thread(){
             public void run(){

@@ -5,15 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.eshopping.R;
 import com.example.eshopping.databinding.ActivityMainBinding;
+import com.example.eshopping.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+public class MainActivity extends AppCompatActivity {
+    RequestQueue queue;
     ActivityMainBinding binding;
 
     @Override
@@ -21,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+   //**************************this method is used for slider**************
+        slider();
+
+
 
         binding.bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -29,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
 
                     case R.id.homeMenu:
-                        Toast.makeText(MainActivity.this, "Home Clicked", Toast.LENGTH_SHORT).show();
+
                         break;
 
                     case R.id.loveMenu:
@@ -56,6 +73,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void slider() {
+        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_OFFERS_URL, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for (int i=0; i<response.length();i++){
+                            try {
+                                JSONObject jsonObject =response.getJSONObject(i);
+                                String image = jsonObject.getString("n_image");
+                               binding.carousel.addData(new CarouselItem(image));
+                                 //   Log.i("TAG", "onResponse: "+image);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "onErrorResponse: "+error.toString());
+            }
+        }
+        );
+
+        queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
 
 
