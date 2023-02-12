@@ -50,6 +50,8 @@ public class SignUpFragment extends Fragment {
         });
 //           ***************Signup button***************
         binding.signUpBtn.setOnClickListener(view -> {
+            binding.signUpBtn.setEnabled(false);
+            binding.signUpBtn.setText("Processing....");
             usersignup();
         });
 
@@ -67,7 +69,7 @@ public class SignUpFragment extends Fragment {
         if (name.equals("")){
             binding.userName.setError("Name can't be empty");
         }
-        if (phone.equals("")){
+        if (phone.length()>14){
             binding.userPhone.setError("Invalid Number");
         }
         if (email.equals("")){
@@ -78,6 +80,7 @@ public class SignUpFragment extends Fragment {
         }
         else {
             registerUser(name,phone,email,password);
+
         }
     }
 
@@ -114,6 +117,8 @@ public class SignUpFragment extends Fragment {
 
     }
 
+
+
     private void showAlert(String localizedMessage) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Warning!");
@@ -127,5 +132,6 @@ public class SignUpFragment extends Fragment {
 
             }
         });
+        builder.show();
     }
 }
