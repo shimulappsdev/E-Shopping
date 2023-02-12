@@ -67,7 +67,7 @@ public class SignUpFragment extends Fragment {
         if (name.equals("")){
             binding.userName.setError("Name can't be empty");
         }
-        if (phone.length()>14 && phone.equals("")){
+        if (phone.equals("")){
             binding.userPhone.setError("Invalid Number");
         }
         if (email.equals("")){
