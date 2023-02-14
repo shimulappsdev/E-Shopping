@@ -30,14 +30,14 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
     @NonNull
     @Override
     public categorisviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new categorisviewholder(LayoutInflater.from(context).inflate(R.layout.categoris_item_layout, parent, false));
+        return new categorisviewholder(LayoutInflater.from(context).inflate(R.layout.product_item_layout, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull Products_adapter.categorisviewholder holder, int position) {
         Item_Product_Model product_list = product_modelList.get(position);
         holder.product_name.setText(Html.fromHtml(product_list.getProduct_name()));
-        holder.product_price.setText(Html.fromHtml(product_list.getProduct_price()));
+        holder.product_price.setText(Integer.valueOf("BDT"+product_list.getProduct_price()));
         Glide.with(context).load(product_list.getProduct_Image())
                 .into(holder.imageView);
 
