@@ -18,6 +18,7 @@ import com.example.eshopping.Model.Item_Categorie_Model;
 import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
 import com.example.eshopping.adapter.Categoris_adapter;
+import com.example.eshopping.adapter.Products_adapter;
 import com.example.eshopping.databinding.ActivityMainBinding;
 import com.example.eshopping.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         categorie_modelList =new ArrayList<>();
-       // product_list =new ArrayList<>();
+        product_list =new ArrayList<>();
         Categoris_adapter categorisAdapter = new Categoris_adapter(this,categorie_modelList);
         binding.categoryRecyclerView.setAdapter(categorisAdapter);
 
-   //   Products_adapter products_adapter = new Products_adapter(this,product_list);
-    //    binding.productRecyclerView.setAdapter(products_adapter);
+     Products_adapter products_adapter = new Products_adapter(this,product_list);
+       binding.productRecyclerView.setAdapter(products_adapter);
 
          //**************************this method is used for slider**************
         slider();
