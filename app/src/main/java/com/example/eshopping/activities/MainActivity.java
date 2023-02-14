@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.eshopping.Model.Item_Categorie_Model;
+import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
 import com.example.eshopping.adapter.Categoris_adapter;
 import com.example.eshopping.databinding.ActivityMainBinding;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     RequestQueue queue;
     ActivityMainBinding binding;
     List<Item_Categorie_Model> categorie_modelList;
- //   List<Item_Product_Model> product_list;
+   List<Item_Product_Model> product_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //**************************this method is used for CATEGORIES*************
         GETCATEGORIE();
         //**************************this method is used for product*************
-        getproduct();
+        product();
 
 
 
@@ -94,7 +95,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getproduct() {
+    private void product() {
+        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_PRODUCT_URL, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.i("TAG", "onErrorResponse: "+response);
+                        for (int i=0; i<response.length();i++){
+                            try {
+                                JSONObject jsonObject =response.getJSONObject(i);
+                                String product_image = jsonObject.getString("image");
+                                String product_name = jsonObject.getString("name");
+                                String product_price = jsonObject.getString("price");
+                                Item_Product_Model product =new Item_Product_Model(product_image,product_name,product_price);
+                                product_list.add(product);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+        );
+
+        queue = Volley.newRequestQueue(this);
+        queue.add(request);
 
 
     }
