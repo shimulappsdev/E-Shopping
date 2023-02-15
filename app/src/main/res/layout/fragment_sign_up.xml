@@ -229,7 +229,7 @@
                     android:fontFamily="@font/poppins"
                     android:text="Sign Up"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_14ssp"
                     android:textColor="@color/white"
                     android:background="@drawable/btn_back"
                     app:layout_constraintStart_toStartOf="parent"
