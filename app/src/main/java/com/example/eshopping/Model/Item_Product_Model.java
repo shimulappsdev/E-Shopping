@@ -10,6 +10,9 @@ public class Item_Product_Model {
         Product_price = product_price;
     }
 
+    public Item_Product_Model() {
+    }
+
     public String getProduct_Image() {
         return Product_Image;
     }

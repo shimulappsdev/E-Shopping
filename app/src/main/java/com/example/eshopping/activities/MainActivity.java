@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     RequestQueue queue;
     ActivityMainBinding binding;
     List<Item_Categorie_Model> categorie_modelList;
-   List<Item_Product_Model> product_list;
+    List<Item_Product_Model> product_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-         //**************************this method is used for slider**************
+        //**************************this method is used for slider**************
         slider();
 
         //**************************this method is used for CATEGORIES*************
@@ -180,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonObject =response.getJSONObject(i);
                                 String image = jsonObject.getString("n_image");
-                               binding.carousel.addData(new CarouselItem(image));
-                                 //   Log.i("TAG", "onResponse: "+image);
+                                binding.carousel.addData(new CarouselItem(image));
+                                //   Log.i("TAG", "onResponse: "+image);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

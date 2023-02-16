@@ -33,10 +33,10 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Products_adapter.categorisviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull categorisviewholder holder, int position) {
         Item_Product_Model product_list = product_modelList.get(position);
         holder.product_name.setText(Html.fromHtml(product_list.getProduct_name()));
-        holder.product_price.setText(Integer.valueOf("BDT"+product_list.getProduct_price()));
+        holder.product_price.setText("BDT"+product_list.getProduct_price());
         Glide.with(context).load(product_list.getProduct_Image())
                 .into(holder.imageView);
 
