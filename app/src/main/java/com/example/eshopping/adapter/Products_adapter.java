@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.eshopping.Model.Item_Categorie_Model;
 import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
 

@@ -33,7 +33,7 @@ public class Categoris_adapter extends RecyclerView.Adapter<Categoris_adapter.ca
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Categoris_adapter.categorisviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull categorisviewholder holder, int position) {
         Item_Categorie_Model cate_list = categorie_modelList.get(position);
         holder.name.setText(Html.fromHtml(cate_list.getName()));
         Glide.with(context).load(cate_list.getImage())

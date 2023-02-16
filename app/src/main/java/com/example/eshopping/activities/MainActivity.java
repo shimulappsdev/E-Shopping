@@ -2,11 +2,13 @@ package com.example.eshopping.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,13 +44,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        categorie_modelList =new ArrayList<>();
-        product_list =new ArrayList<>();
-        Categoris_adapter categorisAdapter = new Categoris_adapter(this,categorie_modelList);
-        binding.categoryRecyclerView.setAdapter(categorisAdapter);
 
-     Products_adapter products_adapter = new Products_adapter(this,product_list);
-       binding.productRecyclerView.setAdapter(products_adapter);
 
          //**************************this method is used for slider**************
         slider();
@@ -101,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i("TAG", "onErrorResponse: "+response);
+
                         for (int i=0; i<response.length();i++){
                             try {
                                 JSONObject jsonObject =response.getJSONObject(i);
@@ -115,10 +111,13 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                        Log.i("TAG", "onResponse_product: "+product_list.size());
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "Can't the Internet", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -127,10 +126,13 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         queue.add(request);
 
-
+        product_list =new ArrayList<>();
+        Products_adapter products_adapter = new Products_adapter(this,product_list);
+        binding.productRecyclerView.setAdapter(products_adapter);
     }
 
     private void GETCATEGORIE() {
+
         JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_CATEGORIES_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -142,22 +144,31 @@ public class MainActivity extends AppCompatActivity {
                                 String name = jsonObject.getString("lname");
                                 Item_Categorie_Model categorie =new Item_Categorie_Model(image,name);
                                 categorie_modelList.add(categorie);
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+                        Log.i("TAG", "onResponse_cate: "+categorie_modelList.size());
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }
         );
 
         queue = Volley.newRequestQueue(this);
         queue.add(request);
+
+        categorie_modelList =new ArrayList<>();
+        GridLayoutManager layoutManager =new GridLayoutManager(this,2, GridLayoutManager.HORIZONTAL,false);
+        // StaggeredGridLayoutManager layoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        binding.categoryRecyclerView.setLayoutManager(layoutManager);
+        Categoris_adapter categorisAdapter = new Categoris_adapter(this,categorie_modelList);
+        binding.categoryRecyclerView.setAdapter(categorisAdapter);
+
     }
 
     private void slider() {

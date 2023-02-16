@@ -1,19 +1,19 @@
 package com.example.eshopping.Model;
 
 public class Item_Categorie_Model {
-	String Image, name;
+    String image,name;
 
     public Item_Categorie_Model(String image, String name) {
-        Image = image;
+        this.image = image;
         this.name = name;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
     public String getName() {
