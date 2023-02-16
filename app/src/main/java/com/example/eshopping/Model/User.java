@@ -2,66 +2,74 @@ package com.example.eshopping.Model;
 
 public class User {
 
-    private String email,uid,name,password,phone,profile;
+    private String user_id,user_name,user_email,user_phone,user_password,user_rePassword,user_profile;
 
-    public User (){
-
+    public User() {
     }
 
-    public User(String email, String uid, String name, String password, String phone, String profile) {
-        this.email = email;
-        this.uid = uid;
-        this.name = name;
-        this.password = password;
-        this.phone = phone;
-        this.profile = profile;
+    public User(String user_id, String user_name, String user_email, String user_phone, String user_password, String user_rePassword, String user_profile) {
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.user_email = user_email;
+        this.user_phone = user_phone;
+        this.user_password = user_password;
+        this.user_rePassword = user_rePassword;
+        this.user_profile = user_profile;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getName() {
-        return name;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUser_phone() {
+        return user_phone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUser_phone(String user_phone) {
+        this.user_phone = user_phone;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUser_password() {
+        return user_password;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUser_password(String user_password) {
+        this.user_password = user_password;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getUser_rePassword() {
+        return user_rePassword;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setUser_rePassword(String user_rePassword) {
+        this.user_rePassword = user_rePassword;
+    }
+
+    public String getUser_profile() {
+        return user_profile;
+    }
+
+    public void setUser_profile(String user_profile) {
+        this.user_profile = user_profile;
     }
 }
