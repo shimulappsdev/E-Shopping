@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SplashFragment extends Fragment {
 
     FragmentSplashBinding binding;
+    FirebaseUser currentUser;
 
 
     @Override
@@ -27,6 +28,7 @@ public class SplashFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSplashBinding.inflate(getLayoutInflater(), container, false);
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Thread thread = new Thread(){
             public void run(){
@@ -38,9 +40,13 @@ public class SplashFragment extends Fragment {
                 }
                 finally {
 
-                    Intent intent = new Intent(getActivity(), EntryActivity.class);
-                    intent.putExtra("signIn", "signIn");
-                    startActivity(intent);
+                    if (currentUser != null){
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+                    }else {
+                        Intent intent = new Intent(getActivity(), EntryActivity.class);
+                        intent.putExtra("signIn", "signIn");
+                        startActivity(intent);
+                    }
 
                 }
             }

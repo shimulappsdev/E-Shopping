@@ -1,9 +1,11 @@
 package com.example.eshopping.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -22,19 +24,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignInFragment extends Fragment {
-    FirebaseUser currentUser;
     FragmentSignInBinding binding;
-    FirebaseAuth mauth;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSignInBinding.inflate(getLayoutInflater(), container, false);
-        mauth = FirebaseAuth.getInstance();
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        //**********if user already sign up the active redirect to Mainactive*********
-        if (currentUser!=null){
-            startActivity(new Intent(getActivity(), MainActivity.class));
-        }
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();;
+
 //****************This Button wrok for if user don't have any account*************************
         binding.signUpNowBtn.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), EntryActivity.class);
@@ -45,31 +46,53 @@ public class SignInFragment extends Fragment {
 //*****************Sign User***********************
 
         binding.signInBtn.setOnClickListener(view -> {
-            String log_email= binding.userEmail.getText().toString();
-            String log_password= binding.userPassword.getText().toString();
-            if (log_email.equals("")){
-                binding.userEmail.setError("Email can't be empty");
-            }
-            if (log_password.equals("")){
-                binding.userPassword.setError("Password can't be empty");
-            }
-            else {
-                login_user(log_email,log_password);
-
+            String email = binding.userEmail.getText().toString().trim();
+            String password = binding.userPassword.getText().toString().trim();
+            if (email.equals("")){
+                binding.userEmail.setError("Required");
+            }else if (password.equals("")){
+                binding.userPassword.setError("Required");
+            }else {
+                UserSignIn(email, password);
             }
         });
-
 
         return binding.getRoot();
     }
 
-    private void login_user(String log_email, String log_password) {
-    mauth.signInWithEmailAndPassword(log_email,log_password).addOnSuccessListener(authResult -> {
-        startActivity(new Intent(getActivity(), MainActivity.class));
-
-    }).addOnFailureListener(e -> {
-        Toast.makeText(getActivity(), "Login Fail! Try aging", Toast.LENGTH_SHORT).show();
-    });
-
+    private void UserSignIn(String email, String password) {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.signInBtn.setVisibility(View.GONE);
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(getActivity(), "Log In Successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                binding.progressBar.setVisibility(View.GONE);
+                binding.signInBtn.setVisibility(View.VISIBLE);
+                ShowAlert(e.getLocalizedMessage());
+            }
+        });
     }
+
+    private void ShowAlert(String errorMsg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Caution!");
+        builder.setMessage(errorMsg);
+        builder.setIcon(android.R.drawable.stat_notify_error);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 }
