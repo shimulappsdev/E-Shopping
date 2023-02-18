@@ -2,7 +2,9 @@ package com.example.eshopping.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,9 +23,15 @@ import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
 import com.example.eshopping.adapter.Categoris_adapter;
 import com.example.eshopping.adapter.Products_adapter;
+import com.example.eshopping.adapter.ViewPagerAdapter;
 import com.example.eshopping.databinding.ActivityMainBinding;
+import com.example.eshopping.fragments.CartFragment;
+import com.example.eshopping.fragments.HomeFragment;
+import com.example.eshopping.fragments.LoveProductFragment;
+import com.example.eshopping.fragments.ProfileFragment;
 import com.example.eshopping.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import org.json.JSONArray;
@@ -34,170 +42,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    RequestQueue queue;
     ActivityMainBinding binding;
-    List<Item_Categorie_Model> categorie_modelList;
-    List<Item_Product_Model> product_list;
+    ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        fragmentArrayList.add(new HomeFragment());
+        fragmentArrayList.add(new LoveProductFragment());
+        fragmentArrayList.add(new CartFragment());
+        fragmentArrayList.add(new ProfileFragment());
 
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, fragmentArrayList);
+        binding.viewpager.setAdapter(viewPagerAdapter);
 
-        //**************************this method is used for slider**************
-        slider();
+        binding.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        binding.bottomMenu.setSelectedItemId(R.id.homeMenu);
+                        break;
+                    case 1:
+                        binding.bottomMenu.setSelectedItemId(R.id.loveMenu);
+                        break;
+                    case 2:
+                        binding.bottomMenu.setSelectedItemId(R.id.cartMenu);
+                        break;
+                    case 3:
+                        binding.bottomMenu.setSelectedItemId(R.id.profileMenu);
+                        break;
+                }
+                super.onPageSelected(position);
+            }
+        });
 
-        //**************************this method is used for CATEGORIES*************
-        GETCATEGORIE();
-        //**************************this method is used for product*************
-        product();
-
-
-
-        binding.bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
-
                     case R.id.homeMenu:
-
+                        binding.viewpager.setCurrentItem(0);
                         break;
 
                     case R.id.loveMenu:
-                        Intent intent1 = new Intent(getApplicationContext(), ContainerActivity.class);
-                        intent1.putExtra("loveMenu", "loveMenu");
-                        startActivity(intent1);
+                        binding.viewpager.setCurrentItem(1);
                         break;
 
                     case R.id.cartMenu:
-                        Intent intent2 = new Intent(getApplicationContext(), ContainerActivity.class);
-                        intent2.putExtra("cartMenu", "cartMenu");
-                        startActivity(intent2);
+                        binding.viewpager.setCurrentItem(2);
                         break;
 
                     case R.id.profileMenu:
-                        Intent intent3 = new Intent(getApplicationContext(), ContainerActivity.class);
-                        intent3.putExtra("profileMenu", "profileMenu");
-                        startActivity(intent3);
+                        binding.viewpager.setCurrentItem(3);
                         break;
-
                 }
 
-                return false;
+                return true;
             }
         });
 
-    }
-
-    private void product() {
-        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_PRODUCT_URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-
-                        for (int i=0; i<response.length();i++){
-                            try {
-                                JSONObject jsonObject =response.getJSONObject(i);
-                                String product_image = jsonObject.getString("image");
-                                String product_name = jsonObject.getString("name");
-                                String product_price = jsonObject.getString("price");
-                                Item_Product_Model product =new Item_Product_Model(product_image,product_name,product_price);
-                                product_list.add(product);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Log.i("TAG", "onResponse_product: "+product_list.size());
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Can't the Internet", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-        );
-
-        queue = Volley.newRequestQueue(this);
-        queue.add(request);
-
-        product_list =new ArrayList<>();
-        Products_adapter products_adapter = new Products_adapter(this,product_list);
-        binding.productRecyclerView.setAdapter(products_adapter);
-    }
-
-    private void GETCATEGORIE() {
-
-        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_CATEGORIES_URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i=0; i<response.length();i++){
-                            try {
-                                JSONObject jsonObject =response.getJSONObject(i);
-                                String image = jsonObject.getString("icon");
-                                String name = jsonObject.getString("lname");
-                                Item_Categorie_Model categorie =new Item_Categorie_Model(image,name);
-                                categorie_modelList.add(categorie);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Log.i("TAG", "onResponse_cate: "+categorie_modelList.size());
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
-
-        queue = Volley.newRequestQueue(this);
-        queue.add(request);
-
-        categorie_modelList =new ArrayList<>();
-        GridLayoutManager layoutManager =new GridLayoutManager(this,2, GridLayoutManager.HORIZONTAL,false);
-        // StaggeredGridLayoutManager layoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        binding.categoryRecyclerView.setLayoutManager(layoutManager);
-        Categoris_adapter categorisAdapter = new Categoris_adapter(this,categorie_modelList);
-        binding.categoryRecyclerView.setAdapter(categorisAdapter);
 
     }
-
-    private void slider() {
-        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_OFFERS_URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i=0; i<response.length();i++){
-                            try {
-                                JSONObject jsonObject =response.getJSONObject(i);
-                                String image = jsonObject.getString("n_image");
-                                binding.carousel.addData(new CarouselItem(image));
-                                //   Log.i("TAG", "onResponse: "+image);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "onErrorResponse: "+error.toString());
-            }
-        }
-        );
-
-        queue = Volley.newRequestQueue(this);
-        queue.add(request);
-    }
-
 
 }
