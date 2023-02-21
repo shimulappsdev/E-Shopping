@@ -50,7 +50,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/subTotalCard"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_40sdp"
         app:cardCornerRadius="@dimen/_5sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_7sdp"
@@ -94,7 +94,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/taxCard"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_40sdp"
         app:cardCornerRadius="@dimen/_5sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_7sdp"
@@ -138,7 +138,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/totalCard"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_40sdp"
         app:cardCornerRadius="@dimen/_5sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_7sdp"
@@ -181,16 +181,17 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_45sdp"
+        android:layout_height="@dimen/_40sdp"
         android:fontFamily="@font/poppins"
         android:text="Check Out"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
         android:textAllCaps="false"
         android:background="@drawable/btn_back"
-        android:layout_margin="@dimen/_20sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/totalCard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
