@@ -24,6 +24,7 @@ import com.example.eshopping.R;
 import com.example.eshopping.adapter.Categoris_adapter;
 import com.example.eshopping.adapter.Products_adapter;
 import com.example.eshopping.adapter.ViewPagerAdapter;
+
 import com.example.eshopping.databinding.ActivityMainBinding;
 import com.example.eshopping.fragments.CartFragment;
 import com.example.eshopping.fragments.HomeFragment;
