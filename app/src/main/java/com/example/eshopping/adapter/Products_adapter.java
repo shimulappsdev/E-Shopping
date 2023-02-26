@@ -1,6 +1,7 @@
 package com.example.eshopping.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
+import com.example.eshopping.activities.productdetailactivity;
 
 import java.util.List;
 
@@ -40,6 +42,15 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
         Glide.with(context).load(product_list.getProduct_Image())
                 .into(holder.imageView);
 
+        holder.itemView.setOnClickListener(view -> {
+        Intent productintent =new Intent(context, productdetailactivity.class);
+            productintent.putExtra("image",product_list.getProduct_Image());
+            productintent.putExtra("name",product_list.getProduct_name());
+            productintent.putExtra("price",product_list.getProduct_price());
+            productintent.putExtra("id",product_list.getId());
+            productintent.putExtra("description",product_list.getProduct_description());
+            context.startActivity(productintent);
+        });
     }
 
 

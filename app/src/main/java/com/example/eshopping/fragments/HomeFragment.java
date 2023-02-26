@@ -72,7 +72,9 @@ public class HomeFragment extends Fragment {
                                 String product_image = jsonObject.getString("image");
                                 String product_name = jsonObject.getString("name");
                                 String product_price = jsonObject.getString("price");
-                                Item_Product_Model product =new Item_Product_Model(product_image,product_name,product_price);
+                                String product_description = jsonObject.getString("description");
+                                int id = jsonObject.getInt("id");
+                                Item_Product_Model product =new Item_Product_Model(product_image,product_name,product_price,product_description,id);
                                 product_list.add(product);
 
                             } catch (JSONException e) {
