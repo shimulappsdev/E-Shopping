@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.eshopping.Model.Item_Categorie_Model;
 import com.example.eshopping.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,9 +36,8 @@ public class Categoris_adapter extends RecyclerView.Adapter<Categoris_adapter.ca
     @Override
     public void onBindViewHolder(@NonNull categorisviewholder holder, int position) {
         Item_Categorie_Model cate_list = categorie_modelList.get(position);
-        holder.name.setText(Html.fromHtml(cate_list.getName()));
-        Glide.with(context).load(cate_list.getImage())
-                .into(holder.imageView);
+        holder.cate_name.setText(Html.fromHtml(cate_list.getCate_name()));
+        Picasso.get().load(cate_list.getCate_image()).into(holder.cate_imageView);
 
     }
 
@@ -48,12 +48,12 @@ public class Categoris_adapter extends RecyclerView.Adapter<Categoris_adapter.ca
     }
 
     public class categorisviewholder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView name;
+        ImageView cate_imageView;
+        TextView cate_name;
         public categorisviewholder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.cate_img);
-            name=itemView.findViewById(R.id.cate_name);
+            cate_imageView=itemView.findViewById(R.id.cate_img);
+            cate_name=itemView.findViewById(R.id.cate_name);
 
         }
     }

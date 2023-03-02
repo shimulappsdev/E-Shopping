@@ -20,6 +20,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.eshopping.Model.Item_Categorie_Model;
 import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
+import com.example.eshopping.Retrofit.MyRetrofit;
+import com.example.eshopping.Retrofit.cateapi;
+import com.example.eshopping.Retrofit.productapi;
 import com.example.eshopping.activities.MainActivity;
 import com.example.eshopping.adapter.Categoris_adapter;
 import com.example.eshopping.adapter.Products_adapter;
@@ -35,13 +38,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class HomeFragment extends Fragment {
 
     FragmentHomeBinding binding;
     RequestQueue queue;
     List<Item_Categorie_Model> categorie_modelList;
     List<Item_Product_Model> product_list;
-
+    Products_adapter products_adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,93 +58,68 @@ public class HomeFragment extends Fragment {
 
         //**************************this method is used for CATEGORIES*************
         GETCATEGORIE();
+        categorie_modelList =new ArrayList<>();
         //**************************this method is used for product*************
         product();
-
+        product_list=new ArrayList<>();
 
 
         return binding.getRoot();
     }
 
     private void product() {
-        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_PRODUCT_URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
+        productapi productapi = MyRetrofit.getRetrofit().create(productapi.class);
 
-                        for (int i=0; i<response.length();i++){
-                            try {
-                                JSONObject jsonObject =response.getJSONObject(i);
-                                String product_image = jsonObject.getString("image");
-                                String product_name = jsonObject.getString("name");
-                                String product_price = jsonObject.getString("price");
-                                String product_description = jsonObject.getString("description");
-                                int id = jsonObject.getInt("id");
-                                Item_Product_Model product =new Item_Product_Model(product_image,product_name,product_price,product_description,id);
-                                product_list.add(product);
+        Call<List<Item_Product_Model>> lastproduct = productapi.getallproduct();
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Log.i("TAG", "onResponse_product: "+product_list.size());
+        lastproduct.enqueue(new Callback<List<Item_Product_Model>>() {
+            @Override
+            public void onResponse(Call<List<Item_Product_Model>> call, retrofit2.Response<List<Item_Product_Model>> response) {
+                product_list = response.body();
+                if (product_list.size()>0){
+                    for (Item_Product_Model product : product_list){
 
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Can't the Internet", Toast.LENGTH_SHORT).show();
-
+                }
+                products_adapter =new Products_adapter(getActivity(),product_list);
+                binding.productRecyclerView.setAdapter(products_adapter);
             }
-        }
-        );
 
-        queue = Volley.newRequestQueue(getActivity());
-        queue.add(request);
+            @Override
+            public void onFailure(Call<List<Item_Product_Model>> call, Throwable t) {
+                Toast.makeText(getActivity(), "NO Internet", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        product_list =new ArrayList<>();
-        Products_adapter products_adapter = new Products_adapter(getActivity(),product_list);
-        binding.productRecyclerView.setAdapter(products_adapter);
     }
 
     private void GETCATEGORIE() {
+        cateapi cateapi = MyRetrofit.getRetrofit().create(cateapi.class);
 
-        JsonArrayRequest request =new JsonArrayRequest(Request.Method.GET, Utils.GET_CATEGORIES_URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i=0; i<response.length();i++){
-                            try {
-                                JSONObject jsonObject =response.getJSONObject(i);
-                                String image = jsonObject.getString("icon");
-                                String name = jsonObject.getString("lname");
-                                Item_Categorie_Model categorie =new Item_Categorie_Model(image,name);
-                                categorie_modelList.add(categorie);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Log.i("TAG", "onResponse_cate: "+categorie_modelList.size());
+        Call<List<Item_Categorie_Model>> listcate = cateapi.getallcete();
+
+        listcate.enqueue(new Callback<List<Item_Categorie_Model>>() {
+            @Override
+            public void onResponse(Call<List<Item_Categorie_Model>> call, retrofit2.Response<List<Item_Categorie_Model>> response) {
+                categorie_modelList = response.body();
+                if (categorie_modelList.size()>0){
+                    for (Item_Categorie_Model cate : categorie_modelList){
 
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+                Categoris_adapter categorisAdapter = new Categoris_adapter(getActivity(),categorie_modelList);
+                binding.categoryRecyclerView.setAdapter(categorisAdapter);
             }
-        }
-        );
 
-        queue = Volley.newRequestQueue(getActivity());
-        queue.add(request);
+            @Override
+            public void onFailure(Call<List<Item_Categorie_Model>> call, Throwable t) {
 
-        categorie_modelList =new ArrayList<>();
+            }
+        });
+
         GridLayoutManager layoutManager =new GridLayoutManager(getActivity(),2, GridLayoutManager.HORIZONTAL,false);
-        // StaggeredGridLayoutManager layoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         binding.categoryRecyclerView.setLayoutManager(layoutManager);
-        Categoris_adapter categorisAdapter = new Categoris_adapter(getActivity(),categorie_modelList);
-        binding.categoryRecyclerView.setAdapter(categorisAdapter);
-
     }
 
     private void slider() {

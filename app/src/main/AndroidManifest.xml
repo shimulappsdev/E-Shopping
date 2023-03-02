@@ -16,7 +16,7 @@
         android:theme="@style/Theme.EShopping"
         tools:targetApi="31">
         <activity
-            android:name=".productdetailactivity"
+            android:name=".activities.productdetailactivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
