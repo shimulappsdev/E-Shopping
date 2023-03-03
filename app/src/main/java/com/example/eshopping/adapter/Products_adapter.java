@@ -37,7 +37,8 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
     public void onBindViewHolder(@NonNull categorisviewholder holder, int position) {
         Item_Product_Model product_list = product_modelList.get(position);
         holder.product_name.setText(Html.fromHtml(product_list.getProduct_name()));
-        holder.product_price.setText(product_list.getProduct_price());
+
+        holder.product_price.setText("BDT"+product_list.getProduct_price());
         Picasso.get().load(product_list.getProduct_image()).into(holder.product_imageView);
 
         holder.itemView.setOnClickListener(view -> {
@@ -46,7 +47,6 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
             productintent.putExtra("name",product_list.getProduct_name());
             productintent.putExtra("price",product_list.getProduct_price());
             productintent.putExtra("id",product_list.getId());
-            productintent.putExtra("description",product_list.getProduct_description());
             context.startActivity(productintent);
         });
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,110 +49,94 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageCard"/>
 
-        <TextView
-            android:id="@+id/productCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="product name"
-            android:textSize="@dimen/_9ssp"
-            android:textColor="@color/off_white"
-            android:maxWidth="@dimen/_110sdp"
-            android:paddingHorizontal="@dimen/_3sdp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:layout_marginTop="@dimen/_2sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productName"/>
-
         <LinearLayout
             android:id="@+id/priceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productCategory">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productName">
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:fontFamily="@font/poppins"
                 android:text="Price: "
-                android:layout_marginHorizontal="@dimen/_3sdp"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/orange"/>
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:id="@+id/priceAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:fontFamily="@font/poppins"
                 android:text="500"
-                android:layout_marginHorizontal="@dimen/_3sdp"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/yellow"/>
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:id="@+id/currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:fontFamily="@font/poppins"
                 android:text="TK"
-                android:layout_marginHorizontal="@dimen/_3sdp"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/orange"/>
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_12ssp" />
 
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/priceLayout"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceLayout">
 
             <ImageButton
                 android:id="@+id/decrementBtn"
-                android:src="@drawable/remove"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/decrement_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/remove"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/quantity"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:fontFamily="@font/poppins"
-                android:text="1"
-                android:textSize="@dimen/_15ssp"
-                android:textColor="@color/orange"
-                android:gravity="center"
                 android:background="@color/off_white"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/decrementBtn"
+                app:layout_constraintBottom_toBottomOf="@id/decrementBtn"
                 app:layout_constraintEnd_toStartOf="@id/incrementBtn"
-                app:layout_constraintTop_toTopOf="@id/decrementBtn"
-                app:layout_constraintBottom_toBottomOf="@id/decrementBtn"/>
+                app:layout_constraintStart_toEndOf="@id/decrementBtn"
+                app:layout_constraintTop_toTopOf="@id/decrementBtn" />
 
             <ImageButton
                 android:id="@+id/incrementBtn"
-                android:src="@drawable/add"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/increment_back"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/add"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
