@@ -52,18 +52,18 @@ public class CartFragment extends Fragment {
         cartAdapter = new CartAdapter(getActivity(), products, new CartListener() {
             @Override
             public void subtotal() {
-                binding.subTotalAmount.setText(String.valueOf(cart.getTotalPrice()));
+                binding.subTotalAmount.setText(String.format("BDT %.2f",cart.getTotalPrice()));
+                totalPrice =  ((cart.getTotalPrice().intValue()* tax / 100) + cart.getTotalPrice().intValue());
+                binding.totalAmount.setText("BDT " + totalPrice);
             }
         });
         binding.cartRecyclerView.setAdapter(cartAdapter);
         GridLayoutManager layoutManager =new GridLayoutManager(getActivity(),1, GridLayoutManager.HORIZONTAL,false);
         binding.cartRecyclerView.setLayoutManager(layoutManager);
 
+        binding.subTotalAmount.setText(String.format("BDT %.2f",cart.getTotalPrice()));
 
-
-        cartAdapter.notifyDataSetChanged();
-        binding.subTotalAmount.setText(String.valueOf(cart.getTotalPrice()));
-        totalPrice = (cart.getTotalPrice().doubleValue() * tax / 100) + cart.getTotalPrice().doubleValue();
+        totalPrice =  ((cart.getTotalPrice().intValue()* tax / 100) + cart.getTotalPrice().intValue());
         binding.totalAmount.setText("BDT " + totalPrice);
         super.onStart();
     }

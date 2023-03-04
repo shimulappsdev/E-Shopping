@@ -58,6 +58,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 holder.binding.quantity.setText(String.valueOf(quantity));
             }
             notifyDataSetChanged();
+            cart.updateItem(product,product.getQuantity());
+            cartListener.subtotal();
 
         });
 
@@ -68,6 +70,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             product.setQuantity(quantity);
            holder.binding.quantity.setText(String.valueOf(quantity));
             notifyDataSetChanged();
+           cart.updateItem(product,product.getQuantity());
+           cartListener.subtotal();
 
         });
     }
