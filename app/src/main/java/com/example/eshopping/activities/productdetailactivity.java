@@ -47,7 +47,7 @@ public class productdetailactivity extends AppCompatActivity {
 
 
         binding.addToCart.setOnClickListener(view -> {
-            cart.addItem(currentproduct,0);
+            cart.addItem(currentproduct,1);
             binding.addToCart.setEnabled(false);
             binding.addToCart.setText("Added in Cart");
         });

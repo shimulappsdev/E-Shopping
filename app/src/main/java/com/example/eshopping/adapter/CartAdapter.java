@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eshopping.CartListener;
@@ -42,10 +44,32 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Picasso.get().
                 load(product.getProduct_image()).
                 into(holder.binding.cartImage);
-
         holder.binding.productName.setText(product.getProduct_name());
         holder.binding.priceAmount.setText("BDT "+product.getProduct_price());
 
+        holder.binding.incrementBtn.setOnClickListener(view1 -> {
+            int quantity=product.getQuantity();
+            quantity++;
+            if(quantity>product.getProduct_stock()) {
+                Toast.makeText(context, "Max stock available: "+ product.getProduct_stock(), Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                product.setQuantity(quantity);
+                holder.binding.quantity.setText(String.valueOf(quantity));
+            }
+            notifyDataSetChanged();
+
+        });
+
+       holder.binding.decrementBtn.setOnClickListener(view1 -> {
+            int quantity=product.getQuantity();
+            if(quantity > 1)
+                quantity--;
+            product.setQuantity(quantity);
+           holder.binding.quantity.setText(String.valueOf(quantity));
+            notifyDataSetChanged();
+
+        });
     }
 
     @Override

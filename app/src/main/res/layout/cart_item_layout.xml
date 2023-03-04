@@ -125,8 +125,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/decrementBtn"
                 app:layout_constraintEnd_toStartOf="@id/incrementBtn"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/decrementBtn"
-                app:layout_constraintTop_toTopOf="@id/decrementBtn" />
+                app:layout_constraintTop_toTopOf="@id/decrementBtn"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageButton
                 android:id="@+id/incrementBtn"

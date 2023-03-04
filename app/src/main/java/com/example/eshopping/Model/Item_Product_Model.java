@@ -112,6 +112,10 @@ public class Item_Product_Model implements  Item, Serializable {
         return product_name;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
