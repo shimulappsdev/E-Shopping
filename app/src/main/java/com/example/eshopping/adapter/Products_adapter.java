@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eshopping.Model.Item_Product_Model;
-import com.example.eshopping.OfflineStorage;
 import com.example.eshopping.R;
 import com.example.eshopping.activities.productdetailactivity;
 import com.squareup.picasso.Picasso;
@@ -51,40 +50,6 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
             productintent.putExtra("price",product_list.getProduct_price());
             productintent.putExtra("id",product_list.getId());
             context.startActivity(productintent);
-        });
-
-
-        holder.product_save.setOnClickListener(view -> {
-            OfflineStorage offlineStorage = new OfflineStorage(context);
-
-            ArrayList<String> favproduct = offlineStorage.getListString("fav");
-            if (favproduct.isEmpty()){
-
-            //    favproduct.add(product_modelList.get(position).getProduct_image());
-                favproduct.add(product_modelList.get(position).getProduct_name());
-               // favproduct.add(product_modelList.get(position).getProduct_price());
-                offlineStorage.putListString("fav",favproduct);
-
-                Toast.makeText(context, "You added this shayari to fav!", Toast.LENGTH_SHORT).show();
-
-
-            }if (!favproduct.isEmpty()){
-
-                if (favproduct.contains(product_modelList.get(position).getProduct_name())){
-
-                    Toast.makeText(context, "Shayari already in Fav!", Toast.LENGTH_SHORT).show();
-                }else {
-                    favproduct.add(product_modelList.get(position).getProduct_image());
-                    favproduct.add(product_modelList.get(position).getProduct_name());
-                    offlineStorage.putListString("fav",favproduct);
-                    Toast.makeText(context, "New shayari added to fav!", Toast.LENGTH_SHORT).show();
-
-
-                }
-
-
-
-            }
         });
     }
 
