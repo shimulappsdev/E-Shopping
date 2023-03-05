@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eshopping.Model.Item_Product_Model;
+import com.example.eshopping.OfflineStorage;
 import com.example.eshopping.R;
 import com.example.eshopping.activities.productdetailactivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Products_adapter extends RecyclerView.Adapter<Products_adapter.categorisviewholder> {
@@ -41,13 +44,47 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
         holder.product_price.setText("BDT"+product_list.getProduct_price());
         Picasso.get().load(product_list.getProduct_image()).into(holder.product_imageView);
 
-        holder.itemView.setOnClickListener(view -> {
+        holder.product_imageView.setOnClickListener(view -> {
         Intent productintent =new Intent(context, productdetailactivity.class);
             productintent.putExtra("image",product_list.getProduct_image());
             productintent.putExtra("name",product_list.getProduct_name());
             productintent.putExtra("price",product_list.getProduct_price());
             productintent.putExtra("id",product_list.getId());
             context.startActivity(productintent);
+        });
+
+
+        holder.product_save.setOnClickListener(view -> {
+            OfflineStorage offlineStorage = new OfflineStorage(context);
+
+            ArrayList<String> favproduct = offlineStorage.getListString("fav");
+            if (favproduct.isEmpty()){
+
+            //    favproduct.add(product_modelList.get(position).getProduct_image());
+                favproduct.add(product_modelList.get(position).getProduct_name());
+               // favproduct.add(product_modelList.get(position).getProduct_price());
+                offlineStorage.putListString("fav",favproduct);
+
+                Toast.makeText(context, "You added this shayari to fav!", Toast.LENGTH_SHORT).show();
+
+
+            }if (!favproduct.isEmpty()){
+
+                if (favproduct.contains(product_modelList.get(position).getProduct_name())){
+
+                    Toast.makeText(context, "Shayari already in Fav!", Toast.LENGTH_SHORT).show();
+                }else {
+                    favproduct.add(product_modelList.get(position).getProduct_image());
+                    favproduct.add(product_modelList.get(position).getProduct_name());
+                    offlineStorage.putListString("fav",favproduct);
+                    Toast.makeText(context, "New shayari added to fav!", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+
+
+            }
         });
     }
 
@@ -58,12 +95,13 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
     }
 
     public class categorisviewholder extends RecyclerView.ViewHolder {
-        ImageView product_imageView;
+        ImageView product_imageView,product_save;
         TextView product_name, product_price;
 
         public categorisviewholder(@NonNull View itemView) {
             super(itemView);
             product_imageView = itemView.findViewById(R.id.product_img);
+            product_save = itemView.findViewById(R.id.product_save);
             product_name = itemView.findViewById(R.id.product_name);
             product_price = itemView.findViewById(R.id.product_price);
 
