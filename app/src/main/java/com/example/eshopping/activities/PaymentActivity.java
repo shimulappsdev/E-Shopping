@@ -29,6 +29,7 @@ public class PaymentActivity extends AppCompatActivity implements SSLCTransactio
         cart = TinyCartHelper.getCart();
 
         totalcheckoutPrice =  ((cart.getTotalPrice().intValue()* tax / 100) + cart.getTotalPrice().intValue());
+
         final SSLCommerzInitialization sslCommerzInitialization = new SSLCommerzInitialization(
                 "creat613377970f2ed",
                 "creat613377970f2ed@ssl",
