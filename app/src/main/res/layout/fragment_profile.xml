@@ -8,21 +8,26 @@
     tools:context=".fragments.ProfileFragment">
 
 
-    <androidx.cardview.widget.CardView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView2"
-        app:cardCornerRadius="@dimen/_80sdp"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/imagehint"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_110sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:civ_border_width="@dimen/_2sdp"
+        app:civ_border_color="@color/ash"
+        android:padding="@dimen/_5sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            app:srcCompat="@drawable/imagehint" />
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/addImgBtn"
+        android:src="@drawable/add_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@id/imageView2"/>
 
     <TextView
         android:id="@+id/profile_name"
@@ -241,6 +246,20 @@
             tools:layout_editor_absoluteY="554dp" />
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/updateProfileBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:text="Update Profile"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_back"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
