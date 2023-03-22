@@ -15,10 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eshopping.Model.Item_Product_Model;
 import com.example.eshopping.R;
 import com.example.eshopping.activities.productdetailactivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Products_adapter extends RecyclerView.Adapter<Products_adapter.categorisviewholder> {
     Context context;
@@ -51,6 +60,46 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.cate
             productintent.putExtra("id",product_list.getId());
             context.startActivity(productintent);
         });
+
+        holder.product_save.setOnClickListener(v -> {
+
+            int product_id = product_list.getId();
+
+            FirebaseUser firebaseUser;
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            String currentUser = firebaseUser.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("user").child(currentUser).child("loved");
+
+            Map<String, Object> loveMap = new HashMap<>();
+            loveMap.put("product_id", product_id);
+            loveMap.put("name", product_list.getProduct_name());
+            loveMap.put("image", product_list.getProduct_image());
+            loveMap.put("status", product_list.getProduct_status());
+            loveMap.put("price", product_list.getItemPrice());
+            loveMap.put("price_discount", product_list.getProduct_price_discount());
+            loveMap.put("stock", product_list.getProduct_stock());
+
+            databaseReference.setValue(loveMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+
+                        Toast.makeText(context, "Added to Love", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Failed to Add", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        });
+
+
+
     }
 
 

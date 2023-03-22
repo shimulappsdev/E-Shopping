@@ -116,6 +116,7 @@ public class ProfileFragment extends Fragment {
                             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    dialog.dismiss();
                                     profileImageUrl = String.valueOf(uri);
                                     Map<String, Object> userMap = new HashMap<>();
                                     userMap.put("user_profile", profileImageUrl);
