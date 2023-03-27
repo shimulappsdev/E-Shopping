@@ -7,7 +7,7 @@
 <p align="center">
   <b>Sign Up & Sign In</b>
   <br><br>
-  <img src="https://user-images.githubusercontent.com/118614364/227754768-29bde0c7-c613-483b-a6a7-1d0db2dce97d.png" width="250" height = "500" <em>>
+  <img src="https://user-images.githubusercontent.com/118614364/227754768-29bde0c7-c613-483b-a6a7-1d0db2dce97d.png" width="250" height = "500" </em>>
   <img src="https://user-images.githubusercontent.com/118614364/227754770-83593ba5-e359-4411-8b6f-b5f2f35d757d.png" width="250" height = "500" >
 </p>
 
