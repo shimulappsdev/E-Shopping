@@ -13,7 +13,7 @@
 
 </p>
 <p align="center">
-  <b>Sign Up & Sign In</b>
+  <b>Home Page & Product Details Page</b>
   <br><br>
   <img src="https://user-images.githubusercontent.com/118614364/227754771-8de28be7-0c7f-4a91-bb4a-c235539ac9dc.png" width="250" height = "500" >
   <img src="https://user-images.githubusercontent.com/118614364/227754776-5ae821f6-3d72-46ad-a4a1-3abe1de85529.png" width="250" height = "500" >
